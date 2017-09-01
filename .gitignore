@@ -1,3 +1,9 @@
+# Mac OS
+.DS_Store
+
+#don't upload created websites
+site/
+
 # Compiled class file
 *.class
 
