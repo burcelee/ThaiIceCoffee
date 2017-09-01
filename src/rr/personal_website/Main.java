@@ -15,7 +15,7 @@ public class Main {
 		
 		//index
 		SimpleWebpage index = new SimpleWebpage("index.html");
-		index.setBody("Rick Rodgers' Very Experimental Website (brought to you by Java) 2 ");
+		index.setBody("Rick Rodgers' Very Experimental Website (brought to you by Java) 3 ");
 		site.addPage(index);
 		
 		//hello test
