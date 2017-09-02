@@ -7,9 +7,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
-import rr.thaiicecoffee.webpages.SimpleWebpage;
+import rr.thaiicecoffee.sitegenerator.webpage.*;
 
-public class SpellingBeeWebpage extends SimpleWebpage {
+public class SpellingBeeWebpage extends Webpage {
 
 	private static final String DICTIONARY_FILE = "dictionary.txt";
 	private static final String ALPHABET_FILE = "alphabet.txt";
@@ -47,8 +47,7 @@ public class SpellingBeeWebpage extends SimpleWebpage {
 	}
 	
 	@Override
-	public String getBody() {
-		System.out.println("test");
+	public String getPageSource() {
 		readWords();
 		ArrayList<ArrayList<Character>> threePointCharacterLists = new ArrayList<ArrayList<Character>>();
 		ArrayList<String> threePointWords = new ArrayList<String>();
@@ -143,10 +142,16 @@ public class SpellingBeeWebpage extends SimpleWebpage {
 		problem +="Total Words: " + answerList.size() + "\n";
 		problem +="Three Point Words: " + threePointAnswers.size() + "\n";
 		
-		String body = 	problem + 
+		String content = 	problem + 
 						"<br>" +
-						"<button onclick='document.write(\"" + answer + "\")'>See answer</button>";
-		return body;
+						"<button onclick='document.getElementById(\"answer\").innerHTML=\"" + answer + "\"'>See answer</button>";
+		Div problemDiv = new Div();
+		problemDiv.addDivAttribute(new DivAttribute("id","spellingbee"));
+		problemDiv.setContent(content);
+		this.appendDiv(problemDiv);
+		Div answerDiv = this.appendDiv(new Div());
+		answerDiv.addDivAttribute(new DivAttribute("id","answer"));
+		return super.getPageSource();
 		
 	}
 }

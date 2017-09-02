@@ -1,8 +1,14 @@
 package rr.personal_website;
 
-import rr.thaiicecoffee.sitegenerator.*;
-import rr.thaiicecoffee.sitegenerator.stylesheet.*;
-import rr.thaiicecoffee.webpages.*;
+import java.util.ArrayList;
+
+import rr.thaiicecoffee.sitegenerator.SiteFile;
+import rr.thaiicecoffee.sitegenerator.Website;
+import rr.thaiicecoffee.sitegenerator.webpage.*;
+import rr.thaiicecoffee.sitegenerator.webpage.smart.*;
+import rr.thaiicecoffee.sitegenerator.webpage.stylesheet.Declaration;
+import rr.thaiicecoffee.sitegenerator.webpage.stylesheet.DeclarationBlock;
+import rr.thaiicecoffee.sitegenerator.webpage.stylesheet.Stylesheet;
 
 public class Main {
 
@@ -10,30 +16,42 @@ public class Main {
 		
 		Website site = new Website();
 		
-		site.addCommonTitle("What a title");
-		site.addCommonNavBar();
-		
+		ArrayList<NavBarLink> mainPages = new ArrayList<NavBarLink>();
 		//index
-		SimpleWebpage index = new SimpleWebpage("index.html");
-		index.setBody("Rick Rodgers' Very Experimental Website (brought to you by Java) 3 ");
-		site.addPage(index);
-		
+		Webpage index = (Webpage)site.addSiteFile(new Webpage("index.html"));
+		index.appendDiv(new Div()).setContent("Rick Rodgers' Very Experimental Website (brought to you by Java) 3 ");
+		mainPages.add(new NavBarLink(index,"home"));
 		//hello test
-		site.addPage(new SimpleWebpage("hello.html"));
+		mainPages.add(new NavBarLink(site.addSiteFile(new Webpage("hello.html")),"test page"));
 
 		//spelling bee
-		site.addPage(new SpellingBeeWebpage());
+		mainPages.add(new NavBarLink(site.addSiteFile(new SpellingBeeWebpage()),"daily spelling bee"));
 		
-		Stylesheet commonCSS = new Stylesheet("common.css");
-		DeclarationBlock navbarDeclarationBlock = new DeclarationBlock(".navbar a");
-		commonCSS.addDeclarationBlock(navbarDeclarationBlock);
-		navbarDeclarationBlock.addDeclaration(new Declaration("padding","20px"));
-		site.addCommonStylesheet(commonCSS);
 		
+		NavBar navBar = new NavBar(mainPages);
+		TitleBar titleBar = new TitleBar("Rick Rodgers");
+		
+		Stylesheet commonCSS = (Stylesheet)site.addSiteFile(new Stylesheet("common.css"));
+		
+		DeclarationBlock navBarDeclarationBlock = commonCSS.addDeclarationBlock(new DeclarationBlock(navBar.getAttributeValue("class") + " a"));
+		navBarDeclarationBlock.addDeclaration("padding","10px");
+		
+		DeclarationBlock navBar2DeclarationBlock = commonCSS.addDeclarationBlock(new DeclarationBlock(navBar.getAttributeValue("class") + " a, a:link, a:hover, a:active, a:visited"));
+		navBar2DeclarationBlock.addDeclaration("color","black");
+		navBar2DeclarationBlock.addDeclaration("text-decoration","underline");
+		
+
+		for (SiteFile siteFile : site.getSiteFiles()) {
+			if (siteFile instanceof Webpage) {
+				((Webpage) siteFile).prependDiv(navBar);
+				((Webpage) siteFile).prependDiv(titleBar);
+				((Webpage) siteFile).addStylesheet(commonCSS);
+			}
+		}
 		try {
 			site.generateWebsite("");
 		} catch (Exception e) {
-			
+			System.out.println("test" + e);
 		}
 	}
 }

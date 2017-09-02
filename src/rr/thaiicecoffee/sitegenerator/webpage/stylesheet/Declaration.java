@@ -1,4 +1,4 @@
-package rr.thaiicecoffee.sitegenerator.stylesheet;
+package rr.thaiicecoffee.sitegenerator.webpage.stylesheet;
 
 public class Declaration{
 

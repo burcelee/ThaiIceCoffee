@@ -1,9 +1,23 @@
-package rr.thaiicecoffee.sitegenerator.stylesheet;
+package rr.thaiicecoffee.sitegenerator.webpage.stylesheet;
 
 import java.util.ArrayList;
 
 public class DeclarationBlock {
 	
+	private class Declaration{
+
+		private String property;
+		private String value;
+		
+		public Declaration(String property, String value) {
+			this.property = property;
+			this.value = value;
+		}
+		
+		public String getSource() {
+			return property + ":" + value + ";";
+	 	}
+	}
 	String selector;
 	ArrayList<Declaration> declarations;
 	
@@ -12,8 +26,8 @@ public class DeclarationBlock {
 		declarations = new ArrayList<Declaration>();
 	}
 	
-	public void addDeclaration(Declaration declaration) {
-		declarations.add(declaration);
+	public void addDeclaration(String property, String value) {
+		declarations.add(new Declaration(property,value));
 	}
 	
 	public String getSource() {
