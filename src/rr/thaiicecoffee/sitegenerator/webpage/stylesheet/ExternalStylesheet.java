@@ -28,6 +28,7 @@ public class ExternalStylesheet extends Stylesheet{
 			while ((line = br.readLine()) != null) {
 				pageSource += line + "\n";
 			}
+			fr.close();
 			br.close();
 		} catch (Exception e) {
 			System.out.println(e);
