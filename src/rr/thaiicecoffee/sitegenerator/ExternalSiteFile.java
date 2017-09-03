@@ -34,6 +34,7 @@ public class ExternalSiteFile implements SiteFile {
 			InputStream is = new FileInputStream(externalFile);
 			
 			is.read(source);
+			is.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
