@@ -28,7 +28,6 @@ public class ExternalSiteFile implements SiteFile {
 
 	@Override
 	public byte[] getPageSource() {
-		String pageSource = "";
 		byte[] source = new byte[(int)externalFile.length()];
 		try {
 			InputStream is = new FileInputStream(externalFile);
