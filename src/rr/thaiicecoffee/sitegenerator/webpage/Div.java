@@ -3,11 +3,13 @@ package rr.thaiicecoffee.sitegenerator.webpage;
 import java.util.ArrayList;
 
 public class Div {
-
+	
+	protected ArrayList<Div> subDivs;
 	protected ArrayList<DivAttribute> attributes;
 	protected String content;
 	
 	public Div() {
+		subDivs = new ArrayList<Div>();
 		attributes = new ArrayList<DivAttribute>();
 		content = "";
 	}
@@ -16,6 +18,10 @@ public class Div {
 		this.content = content;
 	}
 	
+	public Div addDiv(Div div) {
+		subDivs.add(div);
+		return div;
+	}
 	public void addDivAttribute(DivAttribute attribute) {
 		attributes.add(attribute);
 	}
@@ -37,7 +43,14 @@ public class Div {
 		}
 		
 		source += ">\n";
-		source += content + "\n";		
+		if (subDivs.size() == 0) {
+			source += content + "\n";
+		}
+		else {
+			for (Div div : subDivs) {
+				source += div.getSource();
+			}
+		}
 		source += "</div>\n";
 		
 		return source;

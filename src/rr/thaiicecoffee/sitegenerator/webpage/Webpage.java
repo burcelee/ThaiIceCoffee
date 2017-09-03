@@ -49,7 +49,7 @@ public class Webpage implements SiteFile {
 	}
 	
 	@Override
-	public String getPageSource() {
+	public byte[] getPageSource() {
 		String source = PAGE_START;
 		source += HEAD_START;
 		if (title != null) {
@@ -68,7 +68,7 @@ public class Webpage implements SiteFile {
 		}
 		source += BODY_END;
 		source += PAGE_END;
-		return source;
+		return source.getBytes();
 	}
 	
 	@Override

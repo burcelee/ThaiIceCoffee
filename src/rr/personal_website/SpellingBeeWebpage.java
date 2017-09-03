@@ -47,7 +47,7 @@ public class SpellingBeeWebpage extends Webpage {
 	}
 	
 	@Override
-	public String getPageSource() {
+	public byte[] getPageSource() {
 		readWords();
 		ArrayList<ArrayList<Character>> threePointCharacterLists = new ArrayList<ArrayList<Character>>();
 		ArrayList<String> threePointWords = new ArrayList<String>();
@@ -142,14 +142,16 @@ public class SpellingBeeWebpage extends Webpage {
 		problem +="Total Words: " + answerList.size() + "\n";
 		problem +="Three Point Words: " + threePointAnswers.size() + "\n";
 		
+		Div contentDiv = this.appendDiv(new Div());
+		contentDiv.addDivAttribute(new DivAttribute("class","content"));
 		String content = 	problem + 
 						"<br>" +
 						"<button onclick='document.getElementById(\"answer\").innerHTML=\"" + answer + "\"'>See answer</button>";
-		Div problemDiv = new Div();
+		Div problemDiv = contentDiv.addDiv(new Div());
 		problemDiv.addDivAttribute(new DivAttribute("id","spellingbee"));
 		problemDiv.setContent(content);
-		this.appendDiv(problemDiv);
-		Div answerDiv = this.appendDiv(new Div());
+		
+		Div answerDiv = contentDiv.addDiv(new Div());
 		answerDiv.addDivAttribute(new DivAttribute("id","answer"));
 		return super.getPageSource();
 		

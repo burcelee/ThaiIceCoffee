@@ -2,12 +2,15 @@ package rr.personal_website;
 
 import java.util.ArrayList;
 
+import rr.thaiicecoffee.sitegenerator.ExternalSiteFile;
 import rr.thaiicecoffee.sitegenerator.SiteFile;
 import rr.thaiicecoffee.sitegenerator.Website;
 import rr.thaiicecoffee.sitegenerator.webpage.*;
 import rr.thaiicecoffee.sitegenerator.webpage.smart.*;
 import rr.thaiicecoffee.sitegenerator.webpage.stylesheet.Declaration;
 import rr.thaiicecoffee.sitegenerator.webpage.stylesheet.DeclarationBlock;
+import rr.thaiicecoffee.sitegenerator.webpage.stylesheet.ExternalStylesheet;
+import rr.thaiicecoffee.sitegenerator.webpage.stylesheet.SmartStylesheet;
 import rr.thaiicecoffee.sitegenerator.webpage.stylesheet.Stylesheet;
 
 public class Main {
@@ -15,31 +18,36 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Website site = new Website();
-		
 		ArrayList<NavBarLink> mainPages = new ArrayList<NavBarLink>();
+		
 		//index
 		Webpage index = (Webpage)site.addSiteFile(new Webpage("index.html"));
-		index.appendDiv(new Div()).setContent("Rick Rodgers' Very Experimental Website (brought to you by Java) 3 ");
-		mainPages.add(new NavBarLink(index,"home"));
+		Div contentDiv = index.appendDiv(new Div());
+		contentDiv.setContent("Rick Rodgers' Very Experimental Website (brought to you by Java) 3 ");
+		contentDiv.addDivAttribute(new DivAttribute("class","content"));
+		
+		mainPages.add(new NavBarLink(index,"Home"));
 		//hello test
-		mainPages.add(new NavBarLink(site.addSiteFile(new Webpage("hello.html")),"test page"));
+		mainPages.add(new NavBarLink(site.addSiteFile(new Webpage("hello.html")),"Test"));
 
 		//spelling bee
-		mainPages.add(new NavBarLink(site.addSiteFile(new SpellingBeeWebpage()),"daily spelling bee"));
+		mainPages.add(new NavBarLink(site.addSiteFile(new SpellingBeeWebpage()),"Daily Spelling Bee"));
 		
 		
 		NavBar navBar = new NavBar(mainPages);
-		TitleBar titleBar = new TitleBar("Rick Rodgers");
+		TitleBar titleBar = new TitleBar("Rick Rodgers' Website");
 		
-		Stylesheet commonCSS = (Stylesheet)site.addSiteFile(new Stylesheet("common.css"));
+		ExternalStylesheet commonCSS = (ExternalStylesheet)site.addSiteFile(new ExternalStylesheet("common.css"));
 		
-		DeclarationBlock navBarDeclarationBlock = commonCSS.addDeclarationBlock(new DeclarationBlock(navBar.getAttributeValue("class") + " a"));
-		navBarDeclarationBlock.addDeclaration("padding","10px");
-		
-		DeclarationBlock navBar2DeclarationBlock = commonCSS.addDeclarationBlock(new DeclarationBlock(navBar.getAttributeValue("class") + " a, a:link, a:hover, a:active, a:visited"));
-		navBar2DeclarationBlock.addDeclaration("color","black");
-		navBar2DeclarationBlock.addDeclaration("text-decoration","underline");
-		
+		//other files
+		BackgroundGenerator.GenerateBackground("bg.png");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		site.addSiteFile(new ExternalSiteFile("bg.png","imgs"));
 
 		for (SiteFile siteFile : site.getSiteFiles()) {
 			if (siteFile instanceof Webpage) {

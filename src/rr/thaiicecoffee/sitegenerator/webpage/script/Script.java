@@ -6,6 +6,7 @@ public class Script implements SiteFile {
 	
 	private String fileName;
 	private String source;
+	
 	public Script() {
 		
 	}
@@ -14,15 +15,15 @@ public class Script implements SiteFile {
 	public String getFileName() {
 		return fileName;
 	}
-
+	
 	@Override
 	public String getSubdirectory() {
 		return "scripts";
 	}
 
 	@Override
-	public String getPageSource() {
-		return source;
+	public byte[] getPageSource() {
+		return source.getBytes();
 	}
 	
 	@Override

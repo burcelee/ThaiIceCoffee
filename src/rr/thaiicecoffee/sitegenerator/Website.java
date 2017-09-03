@@ -1,8 +1,10 @@
 package rr.thaiicecoffee.sitegenerator;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import rr.thaiicecoffee.sitegenerator.webpage.Webpage;
@@ -63,7 +65,8 @@ public class Website {
 			
 			file.createNewFile();
 			FileWriter fw = new FileWriter(file);
-			fw.write(siteFile.getPageSource());
+			OutputStream os = new FileOutputStream(file);
+			os.write(siteFile.getPageSource());
 			fw.close();
 		}
 	}

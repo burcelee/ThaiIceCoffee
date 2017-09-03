@@ -4,47 +4,19 @@ import java.util.ArrayList;
 
 import rr.thaiicecoffee.sitegenerator.*;
 
-public class Stylesheet implements SiteFile {
+public abstract class Stylesheet implements SiteFile {
 	
-	String name;
-	ArrayList<DeclarationBlock> declarationBlocks;
-	
-	public Stylesheet(String name) {
-		this.name = name;
-		declarationBlocks = new ArrayList<DeclarationBlock>();
-	}
-
 	@Override
-	public String getFileName() {
-		return name;
-	}
-
+	public abstract String getFileName();
+	
 	@Override
 	public String getSubdirectory() {
 		return "css";
 	}
 
 	@Override
-	public String getPageSource() {
-		String source = "";
-		
-		for (DeclarationBlock declarationBlock : declarationBlocks) {
-			source += declarationBlock.getSource() + "\n";
-		}
-		
-		return source;
-	}
+	public abstract byte[] getPageSource();
 	
 	@Override
-	public String getPath() {
-		return getSubdirectory() + "/" + getFileName();
-	}
-	
-	public DeclarationBlock addDeclarationBlock(DeclarationBlock declarationBlock) {
-		declarationBlocks.add(declarationBlock);
-		return declarationBlock;
-	}
-
-
-	
+	public abstract String getPath();
 }
