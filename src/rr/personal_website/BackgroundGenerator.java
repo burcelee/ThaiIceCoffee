@@ -6,11 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -21,25 +18,15 @@ public class BackgroundGenerator {
 	private static final double SMALL_IMAGE_SCALE = .7;
 	private static String[] smallImages = {"donut.png","computer.png"};
 	
-	//only nessecary because bluehost sucks
-	public static BufferedImage getBufferedImage(File f) throws Exception {
-		byte[] source = new byte[(int)f.length()];
-			InputStream is = new FileInputStream(f);
-			
-			is.read(source);
-			is.close();
-		ByteArrayInputStream bais = new ByteArrayInputStream(source);
-	   return ImageIO.read(bais);
-	}
-	
 	public static void GenerateBackground(String filename) {
 		int width = 1920;
 		int height = 1080;
 		ArrayList<BufferedImage> smalls = new ArrayList<BufferedImage>();
 		for (String s : smallImages) {
 			try {
-				smalls.add(getBufferedImage(new File(s)));
-			} catch (Exception e) {
+				BufferedImage buf = ImageIO.read(new File(s));
+				smalls.add(buf);
+			} catch (IOException e) {
 				System.out.print(e);
 			}
 		}
