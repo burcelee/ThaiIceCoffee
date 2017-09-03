@@ -41,14 +41,7 @@ public class Main {
 		
 		//other files
 		BackgroundGenerator.GenerateBackground("bg.png");
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		site.addSiteFile(new ExternalSiteFile("bg.png","imgs"));
-
 		for (SiteFile siteFile : site.getSiteFiles()) {
 			if (siteFile instanceof Webpage) {
 				((Webpage) siteFile).prependDiv(navBar);
