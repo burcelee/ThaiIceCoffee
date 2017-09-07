@@ -130,6 +130,13 @@ public class SpellingBeeWebpage extends Webpage {
 			answer += answerList.get(i) + "<br>";
 		}
 		
+		problem += "Rules:<br>";
+		problem += "<p>Using the below letters (mandatory + 6 optional), make as many words as you can. Words must be at least 5 letters long and must contain the mandatory letter. "
+				+ "No letters can be used except the 7 given, but those 7 may be used any number of times per word. To score yourself, give yourself 1 point for every word and 2 additional points for each "
+				+ "word that uses all 7 letters. Click the button to view answers. The rules of this game were shamelessly stolen from Frank Longo at the NYT Magazine. Puzzle is generated "
+				+ "fresh every day (barring server failures)"
+				+ "</p>";
+		problem += "<br>";
 		problem += middle + "+";
 		characterList.remove(middle);
 		int i = 0;
@@ -138,9 +145,10 @@ public class SpellingBeeWebpage extends Webpage {
 			problem += characterList.get(j);
 			characterList.remove(j);
 		}
-		problem += "\n";
-		problem +="Total Words: " + answerList.size() + "\n";
-		problem +="Three Point Words: " + threePointAnswers.size() + "\n";
+	
+		problem += "<br>";
+		problem +="Total Words: " + answerList.size() + "<br>";
+		problem +="Three Point Words: " + threePointAnswers.size() + "<br>";
 		
 		Div contentDiv = this.appendDiv(new Div());
 		contentDiv.addDivAttribute(new DivAttribute("class","content"));
