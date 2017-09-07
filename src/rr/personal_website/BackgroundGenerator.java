@@ -32,6 +32,7 @@ public class BackgroundGenerator {
 				//this looks horrible, but is required since Bluehost
 				// occasionally prevents ImageIO.read from creating a
 				// separate thread. For whatever reason
+				System.err.println("ERROR: Prevented from reading background images");
 				return;
 			}
 		}
