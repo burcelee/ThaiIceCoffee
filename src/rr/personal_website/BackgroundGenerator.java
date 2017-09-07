@@ -44,7 +44,7 @@ public class BackgroundGenerator {
 		backgroundGraphics.fillRect(0, 0, width, height);
 		Random rand = new Random();
 		
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 100; i++) {
 			//Choose a small image
 			BufferedImage img = smalls.get(Math.abs(rand.nextInt()) % smalls.size());
 			BufferedImage imgColorized = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
