@@ -42,6 +42,8 @@ public class ExternalSiteFile implements SiteFile {
 
 	@Override
 	public String getPath() {
+		if (getSubdirectory() == null)
+			return getFileName();
 		return getSubdirectory() + "/" + getFileName();
 	}
 

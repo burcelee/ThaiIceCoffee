@@ -28,16 +28,25 @@ public class Main {
 		
 		mainPages.add(new NavBarLink(index,"Home"));
 		//hello test
-		mainPages.add(new NavBarLink(site.addSiteFile(new Webpage("hello.html")),"Test"));
+		mainPages.add(new NavBarLink(site.addSiteFile(new Webpage("Contact.html")),"See Also"));
 
 		//spelling bee
 		mainPages.add(new NavBarLink(site.addSiteFile(new SpellingBeeWebpage()),"Daily Spelling Bee"));
 		
+		//pos
+		ExternalSiteFile posHTML = (ExternalSiteFile) site.addSiteFile(new ExternalSiteFile("pos.html",null));
+		mainPages.add(new NavBarLink(posHTML,"POS"));
+		site.addSiteFile(new ExternalSiteFile("jquery-311.js","scripts"));
+		site.addSiteFile(new  ExternalSiteFile("pos_fs.js","scripts"));
+		site.addSiteFile(new ExternalSiteFile("pos_is.js","scripts"));
 		
 		NavBar navBar = new NavBar(mainPages);
 		TitleBar titleBar = new TitleBar("Rick Rodgers' Website");
 		
 		ExternalStylesheet commonCSS = (ExternalStylesheet)site.addSiteFile(new ExternalStylesheet("common.css"));
+		
+
+		
 		
 		//other files
 		BackgroundGenerator.GenerateBackground("bg.png");
