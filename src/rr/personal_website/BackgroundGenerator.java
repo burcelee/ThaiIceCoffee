@@ -42,19 +42,35 @@ public class BackgroundGenerator {
 		
 		backgroundGraphics.setColor(new Color(117,205,200));
 		backgroundGraphics.fillRect(0, 0, width, height);
+		Random rand = new Random();
+		
 		for (int i = 0; i < 50; i++) {
-			
-			Random rand = new Random();
 			//Choose a small image
 			BufferedImage img = smalls.get(Math.abs(rand.nextInt()) % smalls.size());
+			BufferedImage imgColorized = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
+			int r = rand.nextInt(255);
+    		int g = rand.nextInt(255);
+    		int b = rand.nextInt(255);
+    		int randomColor = new Color(r,g,b).getRGB();
+			for (int w = 0; w < img.getWidth(); w++) {
+		        for (int h = 0; h < img.getHeight(); h++) {
+		        	int color = img.getRGB(w, h);
+		        	if (color == Color.red.getRGB()) {
+		        		imgColorized.setRGB(w, h, randomColor);
+		        	}
+		        	else {
+		        		imgColorized.setRGB(w, h, color);
+		        	}
+		        }
+		    }
 			int xPos = Math.abs(rand.nextInt()) % (width - (int)(img.getWidth()*SMALL_IMAGE_SCALE));
 			int yPos = Math.abs(rand.nextInt()) % (height - (int)(img.getHeight()*SMALL_IMAGE_SCALE));
-			double rotation = rand.nextDouble() % (2 * Math.PI);
+			double rotation = Math.toRadians(rand.nextInt(360));
 			AffineTransform at = new AffineTransform();
 			at.translate(xPos, yPos);
 			at.rotate(rotation);
 			at.scale(SMALL_IMAGE_SCALE,SMALL_IMAGE_SCALE);
-			backgroundGraphics.drawImage(img, at, null);
+			backgroundGraphics.drawImage(imgColorized, at, null);
 		}
 		
 		try {
