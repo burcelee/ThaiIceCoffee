@@ -28,6 +28,11 @@ public class BackgroundGenerator {
 				smalls.add(buf);
 			} catch (IOException e) {
 				System.out.print(e);
+			} catch (OutOfMemoryError e) {
+				//this looks horrible, but is required since Bluehost
+				// occasionally prevents ImageIO.read from creating a
+				// separate thread. For whatever reason
+				return;
 			}
 		}
 		
