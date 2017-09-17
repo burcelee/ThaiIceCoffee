@@ -18,7 +18,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Website site = new Website();
-		ArrayList<NavBarLink> mainPages = new ArrayList<NavBarLink>();
+		ArrayList<NavBarLink> navBarPages = new ArrayList<NavBarLink>();
 		
 		//index
 		Webpage index = (Webpage)site.addSiteFile(new Webpage("index.html"));
@@ -26,21 +26,28 @@ public class Main {
 		contentDiv.setContent("Rick Rodgers' Very Experimental Website (brought to you by Java) 3 ");
 		contentDiv.addDivAttribute(new DivAttribute("class","content"));
 		
-		mainPages.add(new NavBarLink(index,"Home"));
+		navBarPages.add(new NavBarLink(index,"Home"));
 		//hello test
-		mainPages.add(new NavBarLink(site.addSiteFile(new Webpage("Contact.html")),"See Also"));
+		navBarPages.add(new NavBarLink(site.addSiteFile(new Webpage("Contact.html")),"See Also"));
 
 		//spelling bee
-		mainPages.add(new NavBarLink(site.addSiteFile(new SpellingBeeWebpage()),"Daily Spelling Bee"));
+		navBarPages.add(new NavBarLink(site.addSiteFile(new SpellingBeeWebpage()),"Daily Spelling Bee"));
+		
+		Webpage blog = new Webpage("Blog.html");
+		navBarPages.add(new NavBarLink(site.addSiteFile(blog),"Oh God, A Blog"));
+		Div blogContentDiv = blog.appendDiv(new Div());
+		blogContentDiv.setContent("<iframe src ='https://gloriouscode.blogspot.com/' width='100%' height='1000'><p>Your browser does not support iFrames.</p></iframe>");
+		blogContentDiv.addDivAttribute(new DivAttribute("class","content"));
+		
 		
 		//pos
 		ExternalSiteFile posHTML = (ExternalSiteFile) site.addSiteFile(new ExternalSiteFile("pos.html",null));
-		mainPages.add(new NavBarLink(posHTML,"POS"));
+		navBarPages.add(new NavBarLink(posHTML,"POS"));
 		site.addSiteFile(new ExternalSiteFile("jquery-311.js","scripts"));
 		site.addSiteFile(new  ExternalSiteFile("pos_fs.js","scripts"));
 		site.addSiteFile(new ExternalSiteFile("pos_is.js","scripts"));
 		
-		NavBar navBar = new NavBar(mainPages);
+		NavBar navBar = new NavBar(navBarPages);
 		TitleBar titleBar = new TitleBar("Rick Rodgers' Website");
 		
 		ExternalStylesheet commonCSS = (ExternalStylesheet)site.addSiteFile(new ExternalStylesheet("common.css"));
